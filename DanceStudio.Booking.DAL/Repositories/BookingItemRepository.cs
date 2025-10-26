@@ -20,12 +20,23 @@ namespace DanceStudio.Booking.DAL.Repositories
             _transaction = transaction;
         }
 
+        public async Task<BookingItem?> GetByIdAsync(long id)
+        {
+            var sql = "SELECT * FROM bookingitems WHERE id = @id";
+            return await _connection.QueryFirstOrDefaultAsync<BookingItem>(
+                sql,
+                new { id },
+                _transaction
+            );
+        }
+
         public async Task<IEnumerable<BookingItem>> GetItemsForBookingAsync(long bookingId)
         {
-            var sql = "SELECT * FROM BookingItems WHERE BookingId = @BookingId";
-            return await _connection.QueryAsync<BookingItem>(sql,
-                new { BookingId = bookingId },
-                transaction: _transaction
+            var sql = "SELECT * FROM bookingitems WHERE bookingid = @bookingId";
+            return await _connection.QueryAsync<BookingItem>(
+                sql,
+                new { bookingId },
+                _transaction
             );
         }
     }

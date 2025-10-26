@@ -12,6 +12,7 @@ namespace DanceStudio.Booking.Bll.Services
         Task<ClientDto> GetByIdAsync(long id);
         Task<ClientDto> CreateAsync(CreateClientDto dto);
         Task<ClientDto> UpdateAsync(UpdateClientDto dto);
-        
+
+        Task DeleteAsync(long id);
     }
 }

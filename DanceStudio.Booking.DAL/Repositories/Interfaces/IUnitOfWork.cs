@@ -11,7 +11,7 @@ namespace DanceStudio.Booking.DAL.Repositories.Interfaces
         IClientRepository Clients { get; }
         IBookingRepository Bookings { get; }
         IBookingItemRepository BookingItems { get; }
-
+        IBookingPaymentRepository BookingPayments { get; }
         Task BeginTransactionAsync();
         Task CommitAsync();
         Task RollbackAsync();

@@ -55,8 +55,15 @@ namespace DanceStudio.Booking.DAL.Repositories
         //fn_cancel_booking
         public async Task CancelBookingAsync(long bookingId)
         {
-            var sql = "SELECT fn_cancel_booking(@p_booking_id)";
-            await _connection.ExecuteAsync(sql, new { p_booking_id = bookingId }, transaction: _transaction);
+            var sql = @"
+        UPDATE Bookings 
+        SET 
+            Status = 2, 
+            IsDeleted = TRUE, 
+            UpdatedAt = NOW()
+        WHERE Id = @bookingId";
+
+            await _connection.ExecuteAsync(sql, new { bookingId }, transaction: _transaction);
         }
 
         //fn_get_client_bookings

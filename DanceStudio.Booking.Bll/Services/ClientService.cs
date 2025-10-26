@@ -56,5 +56,25 @@ namespace DanceStudio.Booking.Bll.Services
 
             return _mapper.Map<ClientDto>(clientToUpdate);
         }
+        public async Task DeleteAsync(long id)
+        {
+            var clientToDelete = await _uow.Clients.GetByIdAsync(id);
+            if (clientToDelete == null)
+                throw new NotFoundException(nameof(Client), id);
+
+            try
+            {
+                await _uow.BeginTransactionAsync();
+
+                await _uow.Clients.DeleteAsync(id);
+
+                await _uow.CommitAsync(); 
+            }
+            catch (Exception ex)
+            {
+                await _uow.RollbackAsync();
+                throw new ApplicationException("Error deleting client.", ex);
+            }
+        }
     }
 }

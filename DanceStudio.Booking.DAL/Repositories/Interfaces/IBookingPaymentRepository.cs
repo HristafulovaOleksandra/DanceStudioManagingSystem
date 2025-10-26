@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace DanceStudio.Booking.DAL.Repositories.Interfaces
 {
-    public interface IBookingItemRepository
+    public interface IBookingPaymentRepository
     {
-        Task<IEnumerable<BookingItem>> GetItemsForBookingAsync(long bookingId);
-        Task<BookingItem?> GetByIdAsync(long id);
-        
+        Task<BookingPayment?> GetByBookingIdAsync(long bookingId);
+
     }
 }

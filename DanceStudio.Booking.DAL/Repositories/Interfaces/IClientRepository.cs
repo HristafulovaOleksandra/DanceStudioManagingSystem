@@ -12,5 +12,7 @@ namespace DanceStudio.Booking.DAL.Repositories.Interfaces
         Task<Client?> GetByIdAsync(long id);
         Task<Client?> GetByEmailAsync(string email);
         Task<long> CreateAsync(Client client);
+        Task UpdateAsync(Client entity);
+        Task DeleteAsync(long id);
     }
 }

@@ -16,32 +16,21 @@ namespace DanceStudio.Booking.Dal
             _transaction = transaction;
         }
 
+ 
         public async Task<Client?> GetByIdAsync(long id)
         {
-            await using var cmd = new NpgsqlCommand("SELECT * FROM Clients WHERE Id = @id AND IsDeleted = FALSE", _connection);
-            cmd.Transaction = _transaction;
-            cmd.Parameters.AddWithValue("id", id);
-
-            await using var reader = await cmd.ExecuteReaderAsync();
-            if (await reader.ReadAsync())
-            {
-                return new Client
-                {
-                    Id = reader.GetInt64(reader.GetOrdinal("id")),
-                    FirstName = reader.GetString(reader.GetOrdinal("firstname")),
-                    LastName = reader.GetString(reader.GetOrdinal("lastname")),
-                    Email = reader.GetString(reader.GetOrdinal("email")),
-                    Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? null : reader.GetString(reader.GetOrdinal("phone")),
-                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("createdat")),
-                    IsDeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"))
-                };
-            }
-            return null;
+            var sql = "SELECT * FROM clients WHERE id = @id AND isdeleted = FALSE";
+            return await _connection.QueryFirstOrDefaultAsync<Client>(
+                sql,
+                new { id },
+                transaction: _transaction
+            );
         }
+
 
         public async Task<Client?> GetByEmailAsync(string email)
         {
-            var sql = "SELECT * FROM Clients WHERE Email = @Email AND IsDeleted = FALSE";
+            var sql = "SELECT * FROM clients WHERE email = @Email AND isdeleted = FALSE";
             return await _connection.QueryFirstOrDefaultAsync<Client>(
                 sql,
                 new { Email = email },
@@ -49,18 +38,43 @@ namespace DanceStudio.Booking.Dal
             );
         }
 
+
         public async Task<long> CreateAsync(Client client)
         {
             var sql = @"
-                INSERT INTO Clients (FirstName, LastName, Email, Phone)
+                INSERT INTO clients (firstname, lastname, email, phone)
                 VALUES (@FirstName, @LastName, @Email, @Phone)
-                RETURNING Id";
+                RETURNING id";
 
             return await _connection.QuerySingleAsync<long>(
                 sql,
                 client,
                 transaction: _transaction
             );
+        }
+
+        public async Task UpdateAsync(Client entity)
+        {
+            var sql = @"
+                UPDATE clients SET
+                    firstname = @FirstName,
+                    lastname = @LastName,
+                    email = @Email,
+                    phone = @Phone,
+                WHERE id = @Id;";
+
+            await _connection.ExecuteAsync(sql, entity, transaction: _transaction);
+        }
+
+
+        public async Task DeleteAsync(long id)
+        {
+            var sql = @"
+                UPDATE clients 
+                SET isdeleted = TRUE
+                WHERE id = @id AND isdeleted = FALSE";
+
+            await _connection.ExecuteAsync(sql, new { id }, transaction: _transaction);
         }
     }
 }

@@ -1,40 +1,33 @@
 ﻿using DanceStudio.Booking.DAL.Repositories.Interfaces;
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
 using System.Data;
 using DanceStudio.Booking.Dal;
+
 namespace DanceStudio.Booking.DAL.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly NpgsqlConnection _connection;
         private NpgsqlTransaction? _transaction;
-        private bool _disposed; 
+        private bool _disposed;
 
-        private IClientRepository? _clientRepository;
-        private IBookingRepository? _bookingRepository;
-        private IBookingItemRepository? _bookingItemRepository;
+  
+        public IClientRepository Clients { get; private set; }
+        public IBookingRepository Bookings { get; private set; }
+        public IBookingItemRepository BookingItems { get; private set; }
 
+        public IBookingPaymentRepository BookingPayments { get; private set; }
 
         public UnitOfWork(NpgsqlConnection connection)
         {
             _connection = connection;
+
+            Clients = new ClientRepository(_connection, null);
+            Bookings = new BookingRepository(_connection, null);
+            BookingItems = new BookingItemRepository(_connection, null);
+            BookingPayments = new BookingPaymentRepository(_connection, null);
         }
-
-        public IClientRepository Clients =>
-            _clientRepository ??= new ClientRepository(_connection, _transaction);
-
-        public IBookingRepository Bookings =>
-            _bookingRepository ??= new BookingRepository(_connection, _transaction);
-
-        public IBookingItemRepository BookingItems =>
-            _bookingItemRepository ??= new BookingItemRepository(_connection, _transaction);
-
 
         public async Task BeginTransactionAsync()
         {
@@ -42,6 +35,10 @@ namespace DanceStudio.Booking.DAL.Repositories
                 throw new InvalidOperationException("Transaction is already started.");
 
             _transaction = await _connection.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+            Clients = new ClientRepository(_connection, _transaction);
+            Bookings = new BookingRepository(_connection, _transaction);
+            BookingItems = new BookingItemRepository(_connection, _transaction);
+            BookingPayments = new BookingPaymentRepository(_connection, _transaction); // <-- 4. ДОДАЙ ЦЕ
         }
 
         public async Task CommitAsync()
@@ -62,6 +59,7 @@ namespace DanceStudio.Booking.DAL.Repositories
             {
                 await _transaction.DisposeAsync();
                 _transaction = null;
+                ResetRepositories();
             }
         }
 
@@ -78,9 +76,17 @@ namespace DanceStudio.Booking.DAL.Repositories
             {
                 await _transaction.DisposeAsync();
                 _transaction = null;
+                ResetRepositories();
             }
         }
 
+        private void ResetRepositories()
+        {
+            Clients = new ClientRepository(_connection, null);
+            Bookings = new BookingRepository(_connection, null);
+            BookingItems = new BookingItemRepository(_connection, null);
+            BookingPayments = new BookingPaymentRepository(_connection, null);
+        }
 
         public void Dispose()
         {
@@ -94,9 +100,7 @@ namespace DanceStudio.Booking.DAL.Repositories
 
             if (disposing)
             {
-                
                 _transaction?.Dispose();
-              
                 _connection?.Dispose();
             }
 

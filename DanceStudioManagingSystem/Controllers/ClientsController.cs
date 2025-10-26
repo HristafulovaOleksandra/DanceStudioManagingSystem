@@ -41,6 +41,14 @@ namespace DanceStudio.Booking.Api.Controllers
             return Ok(client);
         }
 
-        
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteClient(long id)
+        {
+            await _clientService.DeleteAsync(id);
+            return NoContent(); 
+        }
+
     }
 }

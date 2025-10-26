@@ -26,6 +26,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 
+builder.Services.AddScoped<IBookingItemService, BookingItemService>();
+builder.Services.AddScoped<IBookingPaymentService, BookingPaymentService>();
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
 builder.Services.AddControllers();
