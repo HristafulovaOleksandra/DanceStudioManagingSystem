@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Booking.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Booking.DAL", "DanceStudio.Booking.DAL\DanceStudio.Booking.DAL.csproj", "{6A678A53-2B18-4CAE-A314-5CFE211A579B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Booking.Bll", "DanceStudio.Booking.Bll\DanceStudio.Booking.Bll.csproj", "{BA49B002-D34B-4B03-BDB3-4F39F2C6CECB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Booking.Tests", "DanceStudio.Booking.Tests\DanceStudio.Booking.Tests.csproj", "{5898643C-10A1-418C-8834-4E0FA71655B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{6A678A53-2B18-4CAE-A314-5CFE211A579B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A678A53-2B18-4CAE-A314-5CFE211A579B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A678A53-2B18-4CAE-A314-5CFE211A579B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA49B002-D34B-4B03-BDB3-4F39F2C6CECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA49B002-D34B-4B03-BDB3-4F39F2C6CECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA49B002-D34B-4B03-BDB3-4F39F2C6CECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA49B002-D34B-4B03-BDB3-4F39F2C6CECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5898643C-10A1-418C-8834-4E0FA71655B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5898643C-10A1-418C-8834-4E0FA71655B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5898643C-10A1-418C-8834-4E0FA71655B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5898643C-10A1-418C-8834-4E0FA71655B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

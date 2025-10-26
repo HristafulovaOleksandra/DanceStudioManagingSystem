@@ -69,7 +69,6 @@ namespace DanceStudio.Booking.DAL.Repositories
                 transaction: _transaction);
         }
 
-        // 5. Простий Dapper-запит (використовуємо псевдонім BookingEntity)
         public async Task<BookingEntity?> GetByIdAsync(long id)
         {
             var sql = "SELECT * FROM Bookings WHERE Id = @Id AND IsDeleted = FALSE";

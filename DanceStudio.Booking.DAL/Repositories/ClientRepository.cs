@@ -2,13 +2,8 @@
 using DanceStudio.Booking.Domain.Entities;
 using Dapper;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DanceStudio.Booking.DAL.Repositories
+namespace DanceStudio.Booking.Dal
 {
     public class ClientRepository : IClientRepository
     {
@@ -24,32 +19,26 @@ namespace DanceStudio.Booking.DAL.Repositories
         public async Task<Client?> GetByIdAsync(long id)
         {
             await using var cmd = new NpgsqlCommand("SELECT * FROM Clients WHERE Id = @id AND IsDeleted = FALSE", _connection);
-
-            // Прив'язуємо команду до транзакції (важливо для UoW)
             cmd.Transaction = _transaction;
-
-            // Використовуємо параметри для захисту від SQL-ін'єкцій
             cmd.Parameters.AddWithValue("id", id);
 
             await using var reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                
                 return new Client
                 {
-                    Id = reader.GetInt64(reader.GetOrdinal("Id")),
-                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                    LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                    Email = reader.GetString(reader.GetOrdinal("Email")),
-                    Phone = reader.IsDBNull(reader.GetOrdinal("Phone")) ? null : reader.GetString(reader.GetOrdinal("Phone")),
-                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("CreatedAt")),
-                    IsDeleted = reader.GetBoolean(reader.GetOrdinal("IsDeleted"))
+                    Id = reader.GetInt64(reader.GetOrdinal("id")),
+                    FirstName = reader.GetString(reader.GetOrdinal("firstname")),
+                    LastName = reader.GetString(reader.GetOrdinal("lastname")),
+                    Email = reader.GetString(reader.GetOrdinal("email")),
+                    Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? null : reader.GetString(reader.GetOrdinal("phone")),
+                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("createdat")),
+                    IsDeleted = reader.GetBoolean(reader.GetOrdinal("isdeleted"))
                 };
             }
             return null;
         }
 
-        //Dapper
         public async Task<Client?> GetByEmailAsync(string email)
         {
             var sql = "SELECT * FROM Clients WHERE Email = @Email AND IsDeleted = FALSE";
