@@ -11,7 +11,7 @@ namespace DanceStudio.Booking.Domain.Entities
         public long Id { get; set; }
         public long BookingId { get; set; }
         public long ClassScheduleId { get; set; }
-        public string ClassName { get; set; }
+        public string ClassName { get; set; } = string.Empty;
         public decimal Price { get; set; }
     }
 }

@@ -1,17 +1,18 @@
-using DanceStudioManagingSystem.Middleware; 
+using AutoMapper;
 using DanceStudio.Booking.Bll.Profiles;
 using DanceStudio.Booking.Bll.Services;
-
-using DanceStudio.Booking.DAL;
-using Npgsql;
-using DanceStudio.Booking.DAL.Repositories.Interfaces;
+using DanceStudio.Booking.DAL; 
 using DanceStudio.Booking.DAL.Repositories;
+using DanceStudio.Booking.DAL.Repositories.Interfaces; 
+using DanceStudioManagingSystem.Middleware;
+using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
+using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 var connectionString = builder.Configuration.GetConnectionString("BookingDb");
-
 
 builder.Services.AddScoped<NpgsqlConnection>(sp =>
 {
@@ -21,22 +22,27 @@ builder.Services.AddScoped<NpgsqlConnection>(sp =>
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 
 
-builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
 
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Dance Studio API",
+        Version = "v1",
+        Description = "API for Dance Studio Management System"
+    });
+});
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -45,12 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
 app.UseMiddleware<ErrorHandlingMiddleware>();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
