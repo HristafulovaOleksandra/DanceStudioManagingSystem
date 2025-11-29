@@ -38,7 +38,7 @@ namespace DanceStudio.Booking.DAL.Repositories
             Clients = new ClientRepository(_connection, _transaction);
             Bookings = new BookingRepository(_connection, _transaction);
             BookingItems = new BookingItemRepository(_connection, _transaction);
-            BookingPayments = new BookingPaymentRepository(_connection, _transaction); // <-- 4. ДОДАЙ ЦЕ
+            BookingPayments = new BookingPaymentRepository(_connection, _transaction); 
         }
 
         public async Task CommitAsync()

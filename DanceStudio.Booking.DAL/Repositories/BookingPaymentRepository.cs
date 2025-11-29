@@ -1,11 +1,6 @@
 ﻿using DanceStudio.Booking.DAL.Repositories.Interfaces;
 using DanceStudio.Booking.Domain.Entities;
-using Dapper;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DanceStudio.Booking.DAL.Repositories
@@ -23,12 +18,28 @@ namespace DanceStudio.Booking.DAL.Repositories
 
         public async Task<BookingPayment?> GetByBookingIdAsync(long bookingId)
         {
-            var sql = "SELECT * FROM bookingpayments WHERE bookingid = @bookingId";
-            return await _connection.QueryFirstOrDefaultAsync<BookingPayment>(
-                sql,
-                new { bookingId },
-                _transaction
-            );
+            var sql = "SELECT BookingId, PaymentIntentId, Status, Amount, PaidAt FROM bookingpayments WHERE bookingid = @bookingId";
+            await using var command = new NpgsqlCommand(sql, _connection, _transaction);
+
+            command.Parameters.AddWithValue("bookingId", bookingId);
+
+            await using var reader = await command.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+
+                return new BookingPayment
+                {
+                    BookingId = reader.GetInt64(reader.GetOrdinal("BookingId")),
+                    PaymentIntentId = reader.GetString(reader.GetOrdinal("PaymentIntentId")),
+                    Status = reader.GetInt16(reader.GetOrdinal("Status")),
+                    Amount = reader.GetDecimal(reader.GetOrdinal("Amount")),
+
+                    PaidAt = reader.IsDBNull(reader.GetOrdinal("PaidAt")) ? null : reader.GetDateTime(reader.GetOrdinal("PaidAt"))
+                };
+            }
+
+            return null;
         }
     }
 }

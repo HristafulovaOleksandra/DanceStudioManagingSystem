@@ -13,7 +13,6 @@ namespace DanceStudio.Booking.DAL.Repositories.Interfaces
         Task<BookingEntity?> GetByIdAsync(long id);
         Task<IEnumerable<ClientBookingSummary>> GetBookingsForClientAsync(long clientId);
 
-        // call from PostgreSQL
         Task<long> CreateNewBookingAsync(long clientId, long classScheduleId, string className, decimal price);
         Task ConfirmBookingPaymentAsync(long bookingId, string paymentIntentId, decimal amountPaid); //!!
         Task CancelBookingAsync(long bookingId);

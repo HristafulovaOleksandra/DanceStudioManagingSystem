@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudioManagingSystem", "DanceStudioManagingSystem\DanceStudioManagingSystem.csproj", "{88BBB326-9ACE-457C-AC74-3B285622740B}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Booking.Bll", "DanceStudio.Booking.Bll\DanceStudio.Booking.Bll.csproj", "{BA49B002-D34B-4B03-BDB3-4F39F2C6CECB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Booking.Tests", "DanceStudio.Booking.Tests\DanceStudio.Booking.Tests.csproj", "{5898643C-10A1-418C-8834-4E0FA71655B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Catalog.Domain", "DanceStudio.Catalog.Domain\DanceStudio.Catalog.Domain.csproj", "{DD5E673E-3A9C-4BBF-B455-7867875EDFD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Catalog.DAL", "DanceStudio.Catalog.DAL\DanceStudio.Catalog.DAL.csproj", "{165FED07-F526-4D17-8FF2-1947D8673083}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{5898643C-10A1-418C-8834-4E0FA71655B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5898643C-10A1-418C-8834-4E0FA71655B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5898643C-10A1-418C-8834-4E0FA71655B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD5E673E-3A9C-4BBF-B455-7867875EDFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD5E673E-3A9C-4BBF-B455-7867875EDFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD5E673E-3A9C-4BBF-B455-7867875EDFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD5E673E-3A9C-4BBF-B455-7867875EDFD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{165FED07-F526-4D17-8FF2-1947D8673083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{165FED07-F526-4D17-8FF2-1947D8673083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{165FED07-F526-4D17-8FF2-1947D8673083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{165FED07-F526-4D17-8FF2-1947D8673083}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
