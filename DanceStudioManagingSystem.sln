@@ -17,6 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Catalog.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Catalog.DAL", "DanceStudio.Catalog.DAL\DanceStudio.Catalog.DAL.csproj", "{165FED07-F526-4D17-8FF2-1947D8673083}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Catalog.Bll", "DanceStudio.Catalog.Bll\DanceStudio.Catalog.Bll.csproj", "{DABFF560-DF73-4CBB-815F-B5FBE13949FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DD5E673E-3A9C-4BBF-B455-7867875EDFD4} = {DD5E673E-3A9C-4BBF-B455-7867875EDFD4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanceStudio.Catalog.API", "DanceStudio.Catalog.API\DanceStudio.Catalog.API.csproj", "{6BCB0493-F0BE-4638-BB1E-D76631E0547E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +58,14 @@ Global
 		{165FED07-F526-4D17-8FF2-1947D8673083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{165FED07-F526-4D17-8FF2-1947D8673083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{165FED07-F526-4D17-8FF2-1947D8673083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABFF560-DF73-4CBB-815F-B5FBE13949FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABFF560-DF73-4CBB-815F-B5FBE13949FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABFF560-DF73-4CBB-815F-B5FBE13949FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABFF560-DF73-4CBB-815F-B5FBE13949FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BCB0493-F0BE-4638-BB1E-D76631E0547E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BCB0493-F0BE-4638-BB1E-D76631E0547E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BCB0493-F0BE-4638-BB1E-D76631E0547E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BCB0493-F0BE-4638-BB1E-D76631E0547E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

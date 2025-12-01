@@ -12,7 +12,6 @@ namespace DanceStudio.Catalog.Domain.Entities
         public string Description { get; set; } = string.Empty;
         public string? VideoUrl { get; set; }
         public string? Requirements { get; set; }
-
         public DanceClass DanceClass { get; set; } = default!;
     }
 }
