@@ -29,7 +29,9 @@ namespace DanceStudio.Reviews.Infrastructure.Persistence.Repositories
 
         public async Task UpdateAsync(Review review)
         {
-            await _context.Reviews.ReplaceOneAsync(r => r.Id == review.Id, review);
+         
+            var filter = Builders<Review>.Filter.Eq(r => r.Id, review.Id);
+            await _context.Reviews.ReplaceOneAsync(filter, review);
         }
 
         public async Task DeleteAsync(ObjectId id)
@@ -41,7 +43,7 @@ namespace DanceStudio.Reviews.Infrastructure.Persistence.Repositories
         {
             return await _context.Reviews
                 .Find(r => r.TargetId == targetId)
-                .SortByDescending(r => r.CreatedAt)
+                .SortByDescending(r => r.CreatedAt) 
                 .ToListAsync();
         }
 
@@ -54,6 +56,7 @@ namespace DanceStudio.Reviews.Infrastructure.Persistence.Repositories
 
         public async Task<double> GetAverageRatingAsync(string targetId)
         {
+      
             var pipeline = _context.Reviews.Aggregate()
                 .Match(r => r.TargetId == targetId)
                 .Group(r => r.TargetId, g => new

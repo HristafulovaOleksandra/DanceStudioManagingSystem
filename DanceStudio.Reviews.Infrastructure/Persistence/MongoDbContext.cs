@@ -10,26 +10,28 @@ namespace DanceStudio.Reviews.Infrastructure.Persistence
     public class MongoDbContext
     {
         private readonly IMongoDatabase _database;
+        private readonly MongoDbSettings _settings;
 
         public MongoDbContext(IOptions<MongoDbSettings> settings)
         {
-            var client = new MongoClient(settings.Value.ConnectionString);
-            _database = client.GetDatabase(settings.Value.DatabaseName);
+            _settings = settings.Value;
+            var client = new MongoClient(_settings.ConnectionString);
+            _database = client.GetDatabase(_settings.DatabaseName);
 
-            ConfigureBsonMappings();
+            ConfigureMappings();
         }
 
         public IMongoCollection<Review> Reviews =>
-            _database.GetCollection<Review>("reviews");
+            _database.GetCollection<Review>(_settings.ReviewsCollectionName);
 
-        private static void ConfigureBsonMappings()
+        private static void ConfigureMappings()
         {
+ 
             if (!BsonClassMap.IsClassMapRegistered(typeof(Review)))
             {
                 BsonClassMap.RegisterClassMap<Review>(cm =>
                 {
                     cm.AutoMap();
-
                     cm.SetIgnoreExtraElements(true);
                 });
             }
@@ -39,7 +41,6 @@ namespace DanceStudio.Reviews.Infrastructure.Persistence
                 BsonClassMap.RegisterClassMap<Rating>(cm =>
                 {
                     cm.AutoMap();
-
                 });
             }
 

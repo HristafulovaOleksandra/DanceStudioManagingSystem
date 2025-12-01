@@ -7,9 +7,9 @@ namespace DanceStudio.Reviews.Application.Reviews.Commands.CreateReview
     {
         public CreateReviewCommandValidator()
         {
+
             RuleFor(v => v.TargetId)
-                .NotEmpty().WithMessage("TargetId is required.")
-                .Must(BeAValidObjectId).WithMessage("TargetId must be a valid MongoDB ObjectId.");
+                .NotEmpty().WithMessage("TargetId is required.");
 
             RuleFor(v => v.TargetType)
                 .NotEmpty().WithMessage("TargetType is required.")
@@ -30,9 +30,5 @@ namespace DanceStudio.Reviews.Application.Reviews.Commands.CreateReview
                 .NotEmpty().WithMessage("UserName is required.");
         }
 
-        private bool BeAValidObjectId(string id)
-        {
-            return ObjectId.TryParse(id, out _);
-        }
     }
 }

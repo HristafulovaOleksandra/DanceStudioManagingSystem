@@ -2,6 +2,7 @@
 using DanceStudio.Reviews.Infrastructure.Configuration;
 using DanceStudio.Reviews.Infrastructure.Persistence;
 using DanceStudio.Reviews.Infrastructure.Persistence.Repositories;
+using DanceStudio.Reviews.Infrastructure.Persistence.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,8 @@ namespace DanceStudio.Reviews.Infrastructure
             services.AddSingleton<MongoDbContext>();
 
             services.AddScoped<IReviewRepository, ReviewRepository>();
+
+            services.AddHostedService<IndexCreationService>();
 
             return services;
         }
