@@ -1,0 +1,6 @@
+@DanceStudio.Reviews.Api_HostAddress = http://localhost:5103
+
+GET {{DanceStudio.Reviews.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
