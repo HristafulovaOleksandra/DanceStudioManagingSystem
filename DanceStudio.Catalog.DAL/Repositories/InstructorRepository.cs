@@ -13,7 +13,6 @@ namespace DanceStudio.Catalog.DAL.Repositories
         }
 
         // Eager Loading
-        // (багато-до-багатьох)
         public async Task<IEnumerable<Instructor>> GetInstructorsWithClassesAsync()
         {
             return await _dbSet

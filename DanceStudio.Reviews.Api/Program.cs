@@ -1,3 +1,4 @@
+using DanceStudio.Reviews.Api.Middleware;
 using DanceStudio.Reviews.Application;
 using DanceStudio.Reviews.Infrastructure;
 using Microsoft.Extensions.DependencyInjection; 
@@ -29,6 +30,7 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

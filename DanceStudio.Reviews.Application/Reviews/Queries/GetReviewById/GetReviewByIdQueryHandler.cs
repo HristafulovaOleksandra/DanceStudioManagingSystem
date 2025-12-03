@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DanceStudio.Reviews.Application.DTOs;
+using DanceStudio.Reviews.Domain.Entities;
 using DanceStudio.Reviews.Domain.Exceptions;
 using DanceStudio.Reviews.Domain.Interfaces;
 using MediatR;
@@ -17,7 +18,6 @@ namespace DanceStudio.Reviews.Application.Reviews.Queries.GetReviewById
             _repository = repository;
             _mapper = mapper;
         }
-
         public async Task<ReviewDto> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
         {
             if (!ObjectId.TryParse(request.Id, out var objectId))
@@ -26,7 +26,11 @@ namespace DanceStudio.Reviews.Application.Reviews.Queries.GetReviewById
             }
 
             var review = await _repository.GetByIdAsync(objectId);
-            if (review == null) throw new DomainException("Review not found");
+
+            if (review == null)
+            {
+                throw new NotFoundException(nameof(Review), request.Id);
+            }
 
             return _mapper.Map<ReviewDto>(review);
         }
